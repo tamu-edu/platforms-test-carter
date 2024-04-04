@@ -1,10 +1,12 @@
-name: GitHub Pages
+name: github pages
 
 on:
   push:
     branches:
       - main
-  pull_request:
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -12,12 +14,15 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
+      - name: Setup mdBook (with plugins)
+        uses: jontze/action-mdbook@v2
         with:
-           mdbook-version: 'latest'
+            token: ${{secrets.GITHUB_TOKEN}}
+            mdbook-version: 'latest'
+            use-admonish: true
+
 
       - run: mdbook build
 
@@ -27,17 +32,3 @@ jobs:
           folder: book
           branch: gh-pages
           clean-exclude: pr-preview/
-      
-      - name: "Build & test"
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r book.zip . -i book
-
-      - name: "Build & test"
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: book.zip
-          automatic_release_tag: "latest"
-          title: "Latest"
