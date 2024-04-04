@@ -27,3 +27,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./book
+      
+      - name: Create a Release
+      uses: elgohr/Github-Release-Action@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        title: MyReleaseMessage
