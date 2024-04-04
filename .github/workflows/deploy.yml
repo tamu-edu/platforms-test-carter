@@ -28,11 +28,11 @@ jobs:
 
       - name: Check Directory
         run: |  # Here you define your bash command(s)
-          ls -la /home/runner/work/platforms-test-carter/platforms-test-carter
+          ls -la /home/runner/work/platforms-test-carter/platforms-test-carter/public
           
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: book
+          folder: public
           branch: gh-pages
           clean-exclude: pr-preview/
