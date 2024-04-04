@@ -39,3 +39,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: book.zip
+          automatic_release_tag: "latest"
+          title: "Latest"
