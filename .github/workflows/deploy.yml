@@ -26,6 +26,10 @@ jobs:
 
       - run: mdbook build
 
+      - name: Check Directory
+        run: |  # Here you define your bash command(s)
+          ls -la /home/runner/work/platforms-test-carter/platforms-test-carter
+          
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
